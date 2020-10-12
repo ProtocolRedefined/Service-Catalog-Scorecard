@@ -41,7 +41,7 @@ jobs:
       - name: Push Notification
         uses: ProtocolRedefined/Dynamic-Template-Engine@master
         with:
-          repoName: gsaraldemo/Ecosystem-Template-Repository
+          repoName: ProtocolRedefined/Ecosystem-Template-Repository
           branchName: master
           data: '{ "message" : ${{ steps.main-script.outputs.scorecard }} }'
           templateType: HandleBars
