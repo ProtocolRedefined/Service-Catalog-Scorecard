@@ -1,8 +1,11 @@
-$serviceName = "teams-integration";
+$scoreCards = @()
 
-$body = @"
+$services = @("teams-integration", "slack-integration")
+
+function GetScoreCardsForService ([string]$service) {
+    $body = @"
 {
-    service(name: "$($env:GH_SERVICE)"){
+    service(name: "$($service)"){
     id,
     name,
     maintainer {
@@ -15,7 +18,7 @@ $body = @"
           name,
           description,
           
-          scorecardSummaries(serviceName: "$($env:GH_SERVICE)", first: 1){
+          scorecardSummaries(serviceName: "$($service)", first: 1){
             nodes{
               score,
               maxScore,
@@ -34,5 +37,37 @@ $header = @{
 } 
 
 
-$resultJson = Invoke-RestMethod -Uri "https://catalog.githubapp.com/graphql" -Method 'Post' -Body $body -Headers $header | ConvertTo-Json  -Depth 10 -Compress
-$resultJson
+$resultJson = Invoke-RestMethod -Uri "https://catalog.githubapp.com/graphql" -Method 'Post' -Body $body -Headers $header 
+
+return $resultJson
+}
+
+
+
+Foreach ($service in $services)
+{
+   $scoreCard = GetScoreCardsForService $service
+   Foreach($iscoreCard in $scoreCard.data.service.scorecards.edges)
+   {
+        Foreach($iscorecardSummariesNodes in $iscoreCard.node.scorecardSummaries.nodes)
+        {
+            if($iscorecardSummariesNodes.score -lt $iscorecardSummariesNodes.maxScore)
+            {
+                $iscorecardSummariesNodes | Add-Member -NotePropertyName Status -NotePropertyValue "https://pluspng.com/img-png/red-cross-png-red-cross-png-file-2000.png"
+            }
+            else
+            {
+                $iscorecardSummariesNodes | Add-Member -NotePropertyName Status -NotePropertyValue "https://pluspng.com/img-png/green-tick-png-hd-green-tick-png-image-600.png"
+            }
+        }
+   }
+   $scoreCards = $scoreCards + $scoreCard
+}
+
+ $finalToReturn = ($scoreCards | ConvertTo-Json  -Depth 10 -Compress )
+
+
+
+
+ $finalToReturn 
+
