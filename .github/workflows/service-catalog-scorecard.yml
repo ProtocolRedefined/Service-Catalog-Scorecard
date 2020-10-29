@@ -31,7 +31,7 @@ jobs:
           SERVICE_CATALOG_TOKEN: ${{ secrets.SERVICE_CATALOG_TOKEN }}
           
       - name: Push Notification
-        uses: ProtocolRedefined/Service-Catalog-Scorecard@master
+        uses: ProtocolRedefined/Dynamic-Template-Engine@master
         with:
           repoName: ProtocolRedefined/Service-Catalog-Scorecard
           branchName: master
