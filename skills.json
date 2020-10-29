@@ -1,11 +1,11 @@
 [
   {
-    "skill-name": "scoreCard",
+    "skill-name": "service-scoreCard",
     "files": [
       "serviceCatalog.ps1",
       "CardTemplate/Teams/HandleBars/service_catalog_scorecard.handlebars"
     ],
-    "workflowyml": ".github/workflows/service-catalog-scorecard.yml",
-    "message": "Update your team name in *.ps1 and set your password to talk to catalog in xyz env variable"
+    "workflowyml": ".github/workflows/service-scorecard.yml",
+    "message": "Update your team name in *.ps1 and set your password to talk to catalog in SERVICE_CATALOG_TOKEN env variable"
   }
 ]
