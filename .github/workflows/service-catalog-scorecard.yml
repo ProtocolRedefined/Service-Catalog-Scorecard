@@ -34,7 +34,7 @@ jobs:
         uses: ProtocolRedefined/Dynamic-Template-Engine@master
         with:
           repoName: ProtocolRedefined/Service-Catalog-Scorecard
-          branchName: master
+          branchName: main
           data: '{ "message" : ${{ steps.main-script.outputs.scorecard }} }'
           templateType: HandleBars
           sourceType: CatalogScoreCard
