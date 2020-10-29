@@ -5,16 +5,14 @@ name: service-scorecard
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the main branch
 on:
+  schedule:
+    - cron: "15 12 * * *"
   workflow_dispatch:
     inputs:
       name:
-        description: "Person to greet"
+        description: "retrieve scorecard details from service catalog and post the message to user's Teams or Slack channel"
         required: true
         default: "Mona the Octocat"
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
