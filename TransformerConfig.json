@@ -16,7 +16,7 @@
       "SourceType": "CatalogScoreCard",
       "ClientType": "Teams",
       "TemplateType": "HandleBars",
-      "TemplateName": "catalog_eng_scorecard.handlebars"
+      "TemplateName": "service_catalog_scorecard.handlebars"
     }
   ],
   "partials": [],
